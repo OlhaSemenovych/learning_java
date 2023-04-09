@@ -44,9 +44,9 @@ public class MyHashMap<K, V> implements Map<K, V> {
         this(DEFAULT_INITIAL_CAPACITY);
     }
 
-    public static int calculateIndex(Object key, int tableCapacity) {
+    public static int calculateIndex(Object key, int mapCapacity) {
         var hash = key.hashCode() ^ (key.hashCode() >> 16);
-        return hash & (tableCapacity - 1);
+        return hash & (mapCapacity - 1);
     }
 
     public void put(K key, V value) {
@@ -72,9 +72,6 @@ public class MyHashMap<K, V> implements Map<K, V> {
                     current.value = value;
                 }
                 current = current.next;
-            }
-            if (current.key.equals(key)) {
-                current.value = value;
             }
             current.next = newNode;
         }
@@ -129,9 +126,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
         for (int i = 0; i < n; i++) {
             var current = map[i];
             if (current != null) {
-                stringBuilder.append(current.key).append("=").append(current.value).append(",");
-            } else {
-                stringBuilder.append(",");
+                stringBuilder.append(current.key).append("=").append(current.value).append(" ");
             }
         }
         return stringBuilder.toString();
