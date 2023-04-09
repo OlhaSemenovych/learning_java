@@ -5,13 +5,13 @@ import java.util.Objects;
 public class MyLinkedListOneNode<T> implements LinkedList<T> {
 
     /*
-    * A LinkedList implementation with single node
-    * add(Object value) - add element to the end
-    * clear() - clear collection
-    * size() - return size of collection
-    * remove(int index) - delete element per specified index
-    * get(int index) -  return element per specified index
-    */
+     * A LinkedList implementation with single node
+     * add(Object value) - add element to the end
+     * clear() - clear collection
+     * size() - return size of collection
+     * remove(int index) - delete element per specified index
+     * get(int index) -  return element per specified index
+     */
 
     private static class Node<T> {
 

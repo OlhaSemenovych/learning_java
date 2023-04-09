@@ -3,13 +3,13 @@ package module9.queue;
 public class MyQueue<T> implements Queue<T> {
 
     /*
-    * A Queue implementation with single node - FIFO (first-in-first-out)
-    * add(Object value) - add element to the end
-    * clear() - clear collection
-    * size() - return size of collection
-    * peek() - return first element in queue
-    * poll() - return first element in queue and delete it from collection
-    */
+     * A Queue implementation with single node - FIFO (first-in-first-out)
+     * add(Object value) - add element to the end
+     * clear() - clear collection
+     * size() - return size of collection
+     * peek() - return first element in queue
+     * poll() - return first element in queue and delete it from collection
+     */
 
     private static class Node<T> {
 

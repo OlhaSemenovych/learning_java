@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class MyArrayList {
 
     /*
-     * A ArrayList implementation with single node
+     * An ArrayList implementation
      * add(Object value) - add element to the end
      * clear() - clear collection
      * size() - return size of collection

@@ -5,14 +5,14 @@ import java.util.Objects;
 public class MyStack<T> implements Stack<T> {
 
     /*
-    * A Queue implementation with single node - LIFO (last-in-first-out)
-    * push(Object value) - add element to the end
-    * remove(int index) - delete element per specified index
-    * clear() - clear collection
-    * size() - return size of collection
-    * peek() - return first element in stack
-    * pop()  - return first element in stack and  delete it from collection
-    */
+     * A Queue implementation with single node - LIFO (last-in-first-out)
+     * push(Object value) - add element to the end
+     * remove(int index) - delete element per specified index
+     * clear() - clear collection
+     * size() - return size of collection
+     * peek() - return first element in stack
+     * pop()  - return first element in stack and  delete it from collection
+     */
 
     private static class Node<T> {
 

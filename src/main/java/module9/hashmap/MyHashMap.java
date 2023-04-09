@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 public class MyHashMap<K, V> implements Map<K, V> {
 
     /*
-     * A HashMap implementation with single node
+     * A HashMap implementation
      * put(Object key, Object value) - add pair key + value
      * remove(Object key) - delete pair key + value
      * clear() - clear collection
