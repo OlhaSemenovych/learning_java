@@ -28,6 +28,7 @@ public class CollectionTests {
 
         //LinkedList single node
         MyLinkedListOneNode<String> singleNode = new MyLinkedListOneNode<>();
+        System.out.println("---------- Linked List Single Node ----------");
         singleNode.add("one");
         singleNode.add("two");
         singleNode.add("three");
@@ -43,6 +44,7 @@ public class CollectionTests {
 
         //LinkedList two nodes
         MyLinkedListTwoNodes<String> twoNodes = new MyLinkedListTwoNodes<>();
+        System.out.println("---------- LinkedList ----------");
         twoNodes.add("one");
         twoNodes.add("two");
         twoNodes.add("three");
@@ -58,6 +60,7 @@ public class CollectionTests {
 
         //Queue
         MyQueue<String> q = new MyQueue<>();
+        System.out.println("---------- Queue ----------");
         q.add("1");
         q.add("2");
         q.add("3");
@@ -71,6 +74,7 @@ public class CollectionTests {
 
         //Stack
         MyStack<String> stack = new MyStack<>();
+        System.out.println("---------- Stack ----------");
         stack.push("1");
         stack.push("2");
         stack.push("3");
@@ -87,8 +91,11 @@ public class CollectionTests {
 
         //HashMap
         MyHashMap<String, String> map = new MyHashMap<>();
+        System.out.println("---------- HashMap ----------");
         map.put("1", "test");
+        map.put("1", "test111");
         map.put("2", "test2");
+        map.put("2", "test222");
         map.put("3", "test3");
         System.out.println(map.toString());
         map.remove("2");

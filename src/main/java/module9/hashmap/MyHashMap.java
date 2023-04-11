@@ -73,7 +73,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
                 }
                 current = current.next;
             }
-            current.next = newNode;
+            current.value = value;
         }
         size++;
     }
