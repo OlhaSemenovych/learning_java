@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ class JsonFormFile {
     }
 
     public static void createFileWithJson() {
-        File file = new File("user.json");
+        File file = new File("src/main/resources", "user.json");
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(JsonFormFile.createJsonFromFile());
             writer.flush();
