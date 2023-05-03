@@ -1,0 +1,22 @@
+{
+  "name": "Test Update",
+  "username": "TEST Update",
+  "email": "testupdate@test.com",
+  "address": {
+    "street": "Test update",
+    "suite": "Apt. 556",
+    "city": "Test update",
+    "zipcode": "12345-3874",
+    "geo": {
+      "lat": "-12.123",
+      "lng": "13.134"
+    }
+  },
+  "phone": "1-770-736-8031 x56442",
+  "website": "test.org",
+  "company": {
+    "name": "Test Test",
+    "catchPhrase": "Lorem ipsum test update",
+    "bs": "Dolor test update"
+  }
+}
