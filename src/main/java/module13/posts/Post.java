@@ -3,14 +3,14 @@ package module13.posts;
 import lombok.Getter;
 
 @Getter
-public class UserPosts {
+public class Post {
 
     int userId;
     int id;
     String title;
     String body;
 
-    public UserPosts(int userId, int id, String title, String body) {
+    public Post(int userId, int id, String title, String body) {
         this.userId = userId;
         this.id = id;
         this.title = title;
@@ -19,7 +19,7 @@ public class UserPosts {
 
     @Override
     public String toString() {
-        return "UserPosts{" +
+        return "Post{" +
                 "userId='" + userId + '\'' +
                 ", id=" + id +
                 ", title='" + title + '\'' +

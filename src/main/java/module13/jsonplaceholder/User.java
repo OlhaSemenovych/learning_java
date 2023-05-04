@@ -1,18 +1,20 @@
 package module13.jsonplaceholder;
 
+import java.util.Collection;
+
 public class User {
 
     private final int id;
     private final String name;
     private final String username;
     private final String email;
-    private final Object address;
+    private final Address address;
     private final String phone;
     private final String website;
-    private final Object company;
+    private final Company company;
 
     public User(int id, String name, String username, String email,
-                Object address, String phone, String website, Object company) {
+                Address address, String phone, String website, Company company) {
         this.id = id;
         this.name = name;
         this.username = username;

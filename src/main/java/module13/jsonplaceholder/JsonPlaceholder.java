@@ -1,15 +1,17 @@
 package module13.jsonplaceholder;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import utils.FilePathUtils;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
+import java.util.Collection;
 
 public class JsonPlaceholder {
 
@@ -21,7 +23,7 @@ public class JsonPlaceholder {
     private static final Gson GSON = new Gson();
     public static final String JSON = "application/json; charset=UTF-8";
 
-    public void createUser() throws IOException, InterruptedException, URISyntaxException {
+    public User createUser() throws IOException, InterruptedException, URISyntaxException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users"))
                 .header(CONTENT_TYPE, JSON)
@@ -29,10 +31,10 @@ public class JsonPlaceholder {
                         .ofFile(FilePathUtils
                                 .getFilePath(NEW_USER_FILE)))
                 .build();
-        getResponse(request);
+        return getResponse(request);
     }
 
-    public void updateUser(int userId) throws IOException, URISyntaxException, InterruptedException {
+    public User updateUser(int userId) throws IOException, URISyntaxException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users/" + userId))
                 .header(CONTENT_TYPE, JSON)
@@ -40,53 +42,56 @@ public class JsonPlaceholder {
                         .ofFile(FilePathUtils
                                 .getFilePath(UPDATE_USER_FILE)))
                 .build();
-        getResponse(request);
+        return getResponse(request);
     }
 
-    public void deleteUser(int userId) throws IOException, InterruptedException {
+    public User deleteUser(int userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users/" + userId))
                 .header(CONTENT_TYPE, JSON)
                 .DELETE()
                 .build();
-        getResponse(request);
+        return getResponse(request);
     }
 
-    public void getResponse(HttpRequest request) throws IOException, InterruptedException {
+    public User getResponse(HttpRequest request) throws IOException, InterruptedException {
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response);
-        System.out.println(GSON.fromJson(response.body(), User.class));
+        return GSON.fromJson(response.body(), User.class);
     }
 
 
-    public void getAllUsers() throws IOException, InterruptedException {
+    public Collection<User> getAllUsers() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users"))
                 .GET()
                 .build();
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response);
-        System.out.println(Arrays.toString(GSON.fromJson(response.body(), User[].class)));
+        Type collectionType = new TypeToken<Collection<User>>(){}.getType();
+        return GSON.fromJson(response.body(), collectionType);
     }
 
-    public void getUserById(int userId) throws IOException, InterruptedException {
+    public User getUserById(int userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users/" + userId))
                 .header(CONTENT_TYPE, JSON)
                 .GET()
                 .build();
-        getResponse(request);
+        final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response);
+        return GSON.fromJson(response.body(), User.class);
     }
 
-    public void getUserByUserName(String userName) throws IOException, InterruptedException {
+    public Collection<User> getUserByUserName(String userName) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users?username=" + userName))
                 .GET()
                 .build();
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response);
-        System.out.println(response.body());
-
+        Type collectionType = new TypeToken<Collection<User>>(){}.getType();
+        return GSON.fromJson(response.body(), collectionType);
     }
 
 }

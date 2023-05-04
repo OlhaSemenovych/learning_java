@@ -1,7 +1,7 @@
 package module13;
 
 import module13.jsonplaceholder.JsonPlaceholder;
-import module13.posts.CommentToPost;
+import module13.posts.UserComment;
 import module13.todos.TaskToDo;
 
 import java.io.IOException;
@@ -11,24 +11,25 @@ public class Main {
 
     public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
         JsonPlaceholder jsonPlaceholder = new JsonPlaceholder();
-        CommentToPost commentToPost = new CommentToPost();
+        UserComment userComment = new UserComment();
         TaskToDo taskToDo = new TaskToDo();
 
         System.out.println("----- CREATE USER -----");
-        jsonPlaceholder.createUser();
+        System.out.println(jsonPlaceholder.createUser());
         System.out.println("----- UPDATE USER -----");
-        jsonPlaceholder.updateUser(10);
+        System.out.println(jsonPlaceholder.updateUser(10));
         System.out.println("----- DELETE USER -----");
-        jsonPlaceholder.deleteUser(8);
+        System.out.println(jsonPlaceholder.deleteUser(8));
         System.out.println("----- GET ALL USERS LIST -----");
-        jsonPlaceholder.getAllUsers();
+        System.out.println(jsonPlaceholder.getAllUsers());
         System.out.println("----- GET USER BY ID -----");
-        jsonPlaceholder.getUserById(7);
+        System.out.println(jsonPlaceholder.getUserById(7));
         System.out.println("----- GET USER BY USER NAME -----");
+        System.out.println(jsonPlaceholder.getUserByUserName("Bret"));
         jsonPlaceholder.getUserByUserName("Bret");
 
         System.out.println("----- CREATE JSON WITH COMMENTS FOT LAST POST -----");
-        commentToPost.createJsonWithAllCommentsFromLastPostByUserId(5);
+        userComment.createJsonWithAllCommentsFromLastPostByUserId(5);
         System.out.println("----- CREATE JSON WITH OPEN TASKS -----");
         taskToDo.createJsonWithOpenTasks(5);
     }
