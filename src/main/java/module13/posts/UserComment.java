@@ -18,13 +18,14 @@ public class UserComment {
 
     public void createJsonWithAllCommentsFromLastPostByUserId(int userId) throws IOException, InterruptedException {
         JsonFileUtils<Comment> jsonFileUtils = new JsonFileUtils<>();
-        String fileName = String.format("user-%s-post-%s-comments.json", userId, getIdOfTheLastPost(userId));
-        jsonFileUtils.createJsonWithName(fileName, getAllUserCommentForLastPost(userId));
+        int postId = getIdOfTheLastUserPost(userId);
+        String fileName = String.format("user-%s-post-%s-comments.json", userId, postId);
+        jsonFileUtils.createJsonWithName(fileName, getAllCommentForPost(postId));
     }
 
-    public List<Comment> getAllUserCommentForLastPost(int userId) throws IOException, InterruptedException {
+    public List<Comment> getAllCommentForPost(int postId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(URL + "/posts/" + getIdOfTheLastPost(userId) + "/comments"))
+                .uri(URI.create(URL + "/posts/" + postId + "/comments"))
                 .GET()
                 .build();
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
@@ -32,7 +33,7 @@ public class UserComment {
         return Arrays.asList(result);
     }
 
-    public int getIdOfTheLastPost(int userId) throws IOException, InterruptedException {
+    public int getIdOfTheLastUserPost(int userId) throws IOException, InterruptedException {
         Post[] result = getAllUsersPost(userId);
         return Arrays.stream(result)
                 .map(Post::getId)

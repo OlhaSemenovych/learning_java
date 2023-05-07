@@ -2,6 +2,7 @@ package module13.jsonplaceholder;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
 import utils.FilePathUtils;
 
 import java.io.*;
@@ -12,7 +13,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Collection;
+import java.util.List;
 
+@Slf4j
 public class JsonPlaceholder {
 
     private static final String URL = "https://jsonplaceholder.typicode.com";
@@ -22,6 +25,7 @@ public class JsonPlaceholder {
     private static final String CONTENT_TYPE = "Content-Type";
     private static final Gson GSON = new Gson();
     public static final String JSON = "application/json; charset=UTF-8";
+    public static final String STATUS_CODE = "Status code - [{}]";
 
     public User createUser() throws IOException, InterruptedException, URISyntaxException {
         HttpRequest request = HttpRequest.newBuilder()
@@ -31,6 +35,7 @@ public class JsonPlaceholder {
                         .ofFile(FilePathUtils
                                 .getFilePath(NEW_USER_FILE)))
                 .build();
+        log.info(STATUS_CODE, getStatusCode(request));
         return getResponse(request);
     }
 
@@ -42,24 +47,23 @@ public class JsonPlaceholder {
                         .ofFile(FilePathUtils
                                 .getFilePath(UPDATE_USER_FILE)))
                 .build();
+        log.info(STATUS_CODE, getStatusCode(request));
         return getResponse(request);
     }
 
-    public User deleteUser(int userId) throws IOException, InterruptedException {
+    public int deleteUser(int userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users/" + userId))
                 .header(CONTENT_TYPE, JSON)
                 .DELETE()
                 .build();
-        return getResponse(request);
+        return getStatusCode(request);
     }
 
     public User getResponse(HttpRequest request) throws IOException, InterruptedException {
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response);
         return GSON.fromJson(response.body(), User.class);
     }
-
 
     public Collection<User> getAllUsers() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
@@ -67,7 +71,7 @@ public class JsonPlaceholder {
                 .GET()
                 .build();
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response);
+        log.info(STATUS_CODE, getStatusCode(request));
         Type collectionType = new TypeToken<Collection<User>>(){}.getType();
         return GSON.fromJson(response.body(), collectionType);
     }
@@ -79,19 +83,24 @@ public class JsonPlaceholder {
                 .GET()
                 .build();
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response);
+        log.info(STATUS_CODE, getStatusCode(request));
         return GSON.fromJson(response.body(), User.class);
     }
 
-    public Collection<User> getUserByUserName(String userName) throws IOException, InterruptedException {
+    public List<User> getUserByUserName(String userName) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + "/users?username=" + userName))
                 .GET()
                 .build();
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response);
-        Type collectionType = new TypeToken<Collection<User>>(){}.getType();
-        return GSON.fromJson(response.body(), collectionType);
+        log.info(STATUS_CODE, getStatusCode(request));
+        Type listType = new TypeToken<List<User>>(){}.getType();
+        return GSON.fromJson(response.body(), listType);
+    }
+
+    public int getStatusCode(HttpRequest request) throws IOException, InterruptedException {
+        HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        return response.statusCode();
     }
 
 }

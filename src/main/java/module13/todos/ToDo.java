@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TaskToDo {
+public class ToDo {
 
     private static final String URL = "https://jsonplaceholder.typicode.com";
     private static final HttpClient CLIENT = HttpClient.newHttpClient();

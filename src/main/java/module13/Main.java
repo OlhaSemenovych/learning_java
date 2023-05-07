@@ -1,36 +1,43 @@
 package module13;
 
+import lombok.extern.slf4j.Slf4j;
 import module13.jsonplaceholder.JsonPlaceholder;
 import module13.posts.UserComment;
-import module13.todos.TaskToDo;
+import module13.todos.ToDo;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
         JsonPlaceholder jsonPlaceholder = new JsonPlaceholder();
         UserComment userComment = new UserComment();
-        TaskToDo taskToDo = new TaskToDo();
+        ToDo toDo = new ToDo();
 
-        System.out.println("----- CREATE USER -----");
-        System.out.println(jsonPlaceholder.createUser());
-        System.out.println("----- UPDATE USER -----");
-        System.out.println(jsonPlaceholder.updateUser(10));
-        System.out.println("----- DELETE USER -----");
-        System.out.println(jsonPlaceholder.deleteUser(8));
-        System.out.println("----- GET ALL USERS LIST -----");
-        System.out.println(jsonPlaceholder.getAllUsers());
-        System.out.println("----- GET USER BY ID -----");
-        System.out.println(jsonPlaceholder.getUserById(7));
-        System.out.println("----- GET USER BY USER NAME -----");
-        System.out.println(jsonPlaceholder.getUserByUserName("Bret"));
+        log.info("----- CREATE USER -----");
+        log.info("Created User: [{}]", jsonPlaceholder.createUser());
+
+        log.info("----- UPDATE USER -----");
+        log.info("Updated User: [{}]", jsonPlaceholder.updateUser(10));
+
+        log.info("----- DELETE USER -----");
+        log.info("Status code: [{}]", jsonPlaceholder.deleteUser(8));
+
+        log.info("----- GET ALL USERS LIST -----");
+        log.info("Get all Users list: [{}]", jsonPlaceholder.getAllUsers());
+
+        log.info("----- GET USER BY ID -----");
+        log.info("Get User by Id: [{}]", jsonPlaceholder.getUserById(7));
+
+        log.info("----- GET USER BY USER NAME -----");
+        log.info("Get User by UserName: [{}]", jsonPlaceholder.getUserByUserName("Bret"));
         jsonPlaceholder.getUserByUserName("Bret");
 
-        System.out.println("----- CREATE JSON WITH COMMENTS FOT LAST POST -----");
+        log.info("----- CREATE JSON WITH COMMENTS FOT LAST POST -----");
         userComment.createJsonWithAllCommentsFromLastPostByUserId(5);
-        System.out.println("----- CREATE JSON WITH OPEN TASKS -----");
-        taskToDo.createJsonWithOpenTasks(5);
+        log.info("----- CREATE JSON WITH OPEN TASKS -----");
+        toDo.createJsonWithOpenTasks(5);
     }
 }
