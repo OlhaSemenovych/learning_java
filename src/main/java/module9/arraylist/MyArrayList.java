@@ -2,7 +2,8 @@ package module9.arraylist;
 
 import java.util.Arrays;
 
-public class MyArrayList {
+@SuppressWarnings("unchecked")
+public class MyArrayList<T> {
 
     /*
      * An ArrayList implementation
@@ -13,17 +14,28 @@ public class MyArrayList {
      * get(int index) -  return element per specified index
      */
 
-    private Object[] values = new Object[]{};
+    private static final int DEFAULT_CAPACITY = 0;
+    private T[] values;
+    private final int size;
 
-    public void add(Object value) {
+    public MyArrayList() {
+        this(DEFAULT_CAPACITY);
+    }
+
+    public MyArrayList(int capacity) {
+        values = (T[]) new Object[capacity];
+        size = 0;
+    }
+
+    public void add(T value) {
         values = Arrays.copyOf(values, values.length + 1);
         values[values.length - 1] = value;
     }
 
     public void remove(int index) {
-        for (int i = index; i < values.length - 1; i++) {
-            values[i] = values[i + 1];
-        }
+        if (values.length - 1 - index >= 0)
+            System.arraycopy(values, index + 1, values, index,
+                    values.length - 1 - index);
         values = Arrays.copyOf(values, values.length - 1);
     }
 
@@ -35,7 +47,7 @@ public class MyArrayList {
         return values.length;
     }
 
-    public Object get(int index) {
+    public T get(int index) {
         return values[index];
     }
 

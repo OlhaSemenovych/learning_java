@@ -12,19 +12,21 @@ public class CollectionTests {
     public static void main(String[] args) {
 
         //ArrayList
-        MyArrayList arr = new MyArrayList();
+        MyArrayList<String> arr = new MyArrayList<>();
         arr.add("one");
-        arr.add(1);
         arr.add("two");
-        System.out.println(arr.toString());
+        arr.add("three");
+        System.out.println(arr);
         System.out.println(arr.size());
-        System.out.println(arr.get(2).toString());
+        System.out.println(arr.get(1));
         arr.remove(2);
         arr.remove(1);
         System.out.println(arr);
         arr.add("three");
+        System.out.println(arr);
         arr.clear();
         System.out.println(arr);
+
 
         //LinkedList single node
         MyLinkedListOneNode<String> singleNode = new MyLinkedListOneNode<>();

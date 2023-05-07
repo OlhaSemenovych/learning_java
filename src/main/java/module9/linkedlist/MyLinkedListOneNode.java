@@ -15,7 +15,7 @@ public class MyLinkedListOneNode<T> implements LinkedList<T> {
 
     private static class Node<T> {
 
-        private T element;
+        private final T element;
         private Node<T> next;
 
         public Node(T element) {
