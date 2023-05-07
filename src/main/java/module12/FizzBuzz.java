@@ -5,7 +5,7 @@ import java.util.function.IntConsumer;
 
 public class FizzBuzz {
 
-    private int n;
+    private final int n;
     private final AtomicInteger counter;
 
     public FizzBuzz(int n) {

@@ -2,6 +2,7 @@ package module10;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -11,13 +12,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@Slf4j
 class JsonFormFile {
 
     public static final String FILE_NAME = "task2_file.txt";
 
     static class User {
-        private String name;
-        private int age;
+        private final String name;
+        private final int age;
 
         public User(String name, int age) {
             this.name = name;
@@ -52,7 +54,7 @@ class JsonFormFile {
                 user.add(new User(lines[0], Integer.parseInt(lines[1])));
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -65,7 +67,7 @@ class JsonFormFile {
             writer.write(JsonFormFile.createJsonFromFile());
             writer.flush();
         } catch (IOException | URISyntaxException e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
     }
 

@@ -10,8 +10,7 @@ public class Numbers {
         return numbers.stream()
                 .flatMapToInt((value) -> {
                     String[] split = value.split(", ");
-                    return Arrays.asList(split)
-                            .stream()
+                    return Arrays.stream(split)
                             .mapToInt(Integer::parseInt);
                 })
                 .sorted()

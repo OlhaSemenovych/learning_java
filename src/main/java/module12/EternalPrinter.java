@@ -1,9 +1,12 @@
 package module12;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class EternalPrinter {
 
     public static void eternalPrinterWithScheduledExecutorService() {
@@ -15,7 +18,7 @@ public class EternalPrinter {
                 () -> {
                     long endTime = System.nanoTime();
                     long time = endTime - startTime;
-                    System.out.println(time);
+                    log.info("Current time: [{}]", time);
                 },
                 0,
                 1,
@@ -23,7 +26,7 @@ public class EternalPrinter {
         );
 
         service.scheduleAtFixedRate(
-                () -> System.out.println("5 seconds have been passed"),
+                () -> log.info("5 seconds have been passed"),
                 5,
                 5,
                 TimeUnit.SECONDS
@@ -38,7 +41,7 @@ public class EternalPrinter {
             while (true) {
                 try {
                     Thread.sleep(5000);
-                    System.out.println("5 seconds have been passed");
+                    log.info("5 seconds have been passed");
                 } catch (InterruptedException exception) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(exception);
@@ -52,7 +55,7 @@ public class EternalPrinter {
                     Thread.sleep(1000);
                     long endTime = System.nanoTime();
                     long time = endTime - startTime;
-                    System.out.println(time);
+                    log.info("Current time: [{}]", time);
                 } catch (InterruptedException exception) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(exception);

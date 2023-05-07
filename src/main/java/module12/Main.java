@@ -1,39 +1,50 @@
 package module12;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
+
+    public static final String INTERRUPTED = "Interrupted!";
 
     public static void main(String[] args) {
 
-        System.out.println("----- Eternal Printer using Thread(Runnable) -----");
+        log.info("----- Eternal Printer using Thread(Runnable) -----");
         EternalPrinter.eternalPrinterWithThread();
 
-        System.out.println("----- Eternal Printer using 'ScheduledExecutorService' -----");
+        log.info("----- Eternal Printer using 'ScheduledExecutorService' -----");
         EternalPrinter.eternalPrinterWithScheduledExecutorService();
 
 
-        System.out.println("----- FizzBuzz 4 Threads -----");
+        log.info("----- FizzBuzz 4 Threads -----");
         FizzBuzz fizzBuzz = new FizzBuzz(17);
 
         Thread threadA = new Thread(() -> {
             try {
-                fizzBuzz.fizz(() -> System.out.println("fizz"));
+                fizzBuzz.fizz(() -> log.info("fizz"));
             } catch (InterruptedException e) {
+                log.warn(INTERRUPTED, e);
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
         });
 
         Thread threadB = new Thread(() -> {
             try {
-                fizzBuzz.buzz(() -> System.out.println("buzz"));
+                fizzBuzz.buzz(() -> log.info("buzz"));
             } catch (InterruptedException e) {
+                log.warn(INTERRUPTED, e);
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
         });
 
         Thread threadC = new Thread(() -> {
             try {
-                fizzBuzz.fizzBuzz(() -> System.out.println("fizzbuzz"));
+                fizzBuzz.fizzBuzz(() -> log.info("fizzbuzz"));
             } catch (InterruptedException e) {
+                log.warn(INTERRUPTED, e);
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
         });
@@ -42,6 +53,8 @@ public class Main {
             try {
                 fizzBuzz.number(System.out::println);
             } catch (InterruptedException e) {
+                log.warn(INTERRUPTED, e);
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
         });
